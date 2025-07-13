@@ -17,7 +17,7 @@ venv/
 Data/
 archive.zip
 *.csv
-*.txt
+Data/*.txt
 
 # IDE
 .vscode/
