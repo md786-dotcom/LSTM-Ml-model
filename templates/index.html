@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Price Prediction Bot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <i class="fas fa-chart-line logo"></i>
+                <h1>Stock Prediction AI</h1>
+                <p class="subtitle">Powered by LSTM Neural Networks</p>
+            </div>
+        </div>
+
+        <!-- Chat Container -->
+        <div class="chat-container">
+            <div class="chat-header">
+                <div class="status-indicator"></div>
+                <span>AI Assistant</span>
+                <div class="model-info">
+                    <i class="fas fa-brain"></i>
+                    <span>LSTM Model</span>
+                </div>
+            </div>
+
+            <div class="chat-messages" id="chatMessages">
+                <!-- Welcome Message -->
+                <div class="message bot-message">
+                    <div class="message-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="message-content">
+                        <p>Hello! I'm your AI stock prediction assistant. 🚀</p>
+                        <p>I can predict stock prices for the next 5 days using advanced LSTM neural networks.</p>
+                        <p>Try asking me:</p>
+                        <ul>
+                            <li>"Predict AAPL"</li>
+                            <li>"What will TSLA do?"</li>
+                            <li>"Analyze MSFT stock"</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="chat-input-container">
+                <input type="text" 
+                       id="userInput" 
+                       class="chat-input" 
+                       placeholder="Ask about any stock ticker (e.g., 'Predict AAPL')"
+                       autocomplete="off">
+                <button id="sendButton" class="send-button">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Popular Stocks -->
+        <div class="popular-stocks">
+            <h3>Popular Stocks</h3>
+            <div class="stock-buttons">
+                <button class="stock-btn" onclick="predictStock('AAPL')">
+                    <i class="fab fa-apple"></i> AAPL
+                </button>
+                <button class="stock-btn" onclick="predictStock('GOOGL')">
+                    <i class="fab fa-google"></i> GOOGL
+                </button>
+                <button class="stock-btn" onclick="predictStock('TSLA')">
+                    <i class="fas fa-car"></i> TSLA
+                </button>
+                <button class="stock-btn" onclick="predictStock('MSFT')">
+                    <i class="fab fa-microsoft"></i> MSFT
+                </button>
+                <button class="stock-btn" onclick="predictStock('AMZN')">
+                    <i class="fab fa-amazon"></i> AMZN
+                </button>
+                <button class="stock-btn" onclick="predictStock('META')">
+                    <i class="fab fa-facebook"></i> META
+                </button>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>Predictions are based on historical data and should not be used as sole investment advice.</p>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+</body>
+</html>

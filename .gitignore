@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv
+*.egg-info/
+
+# Model files (too large for GitHub)
+*.h5
+*.pkl
+
+# Data files
+Data/
+archive.zip
+*.csv
+*.txt
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Cache
+yfinance.cache
+*.cache
+
+# Logs
+*.log
+
+# Environment
+.env
+.env.local
+
+# Test files
+test_*.py
+check_*.py
+app_mock.py
