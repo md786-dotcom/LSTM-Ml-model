@@ -3,7 +3,7 @@ services:
     name: stock-prediction-bot
     runtime: python
     buildCommand: "pip install -r requirements.txt"
-    startCommand: "gunicorn app:app --bind 0.0.0.0:$PORT"
+    startCommand: "gunicorn app_optimized:app --bind 0.0.0.0:$PORT --timeout 120 --workers 1 --threads 2 --worker-class sync"
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.0
@@ -12,10 +12,12 @@ services:
       - key: FLASK_ENV
         value: production
       - key: TF_CPP_MIN_LOG_LEVEL
-        value: 2
+        value: 3
       - key: MODEL_PATH
         value: stock_price_lstm_model.h5
       - key: SCALER_FEATURES_PATH
         value: scaler_features.pkl
       - key: SCALER_TARGET_PATH
         value: scaler_target.pkl
+      - key: TF_FORCE_GPU_ALLOW_GROWTH
+        value: true
