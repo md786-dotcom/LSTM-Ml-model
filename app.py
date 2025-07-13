@@ -6,8 +6,13 @@ import joblib
 import yfinance as yf
 from datetime import datetime, timedelta
 import os
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev-secret-key-change-this')
 
 # Load the trained model and scalers
 model = None
@@ -17,11 +22,11 @@ scaler_target = None
 def load_model_files():
     global model, scaler_features, scaler_target
     
-    # Check if files exist
+    # Get file paths from environment variables or use defaults
     model_files = {
-        'model': 'stock_price_lstm_model.h5',
-        'scaler_features': 'scaler_features.pkl',
-        'scaler_target': 'scaler_target.pkl'
+        'model': os.getenv('MODEL_PATH', 'stock_price_lstm_model.h5'),
+        'scaler_features': os.getenv('SCALER_FEATURES_PATH', 'scaler_features.pkl'),
+        'scaler_target': os.getenv('SCALER_TARGET_PATH', 'scaler_target.pkl')
     }
     
     missing_files = []
@@ -36,10 +41,10 @@ def load_model_files():
     
     try:
         print("Loading model files...")
-        model = load_model('stock_price_lstm_model.h5', compile=False)
+        model = load_model(model_files['model'], compile=False)
         model.compile(optimizer='adam', loss='mse', metrics=['mae'])
-        scaler_features = joblib.load('scaler_features.pkl')
-        scaler_target = joblib.load('scaler_target.pkl')
+        scaler_features = joblib.load(model_files['scaler_features'])
+        scaler_target = joblib.load(model_files['scaler_target'])
         print("Model loaded successfully!")
         return True
     except Exception as e:
@@ -282,4 +287,9 @@ if __name__ == '__main__':
         print("  - scaler_target.pkl")
         print("\nThe app will still run but predictions won't work.\n")
     
-    app.run(host='0.0.0.0', port=5001, debug=True)
+    # Get configuration from environment
+    host = os.getenv('HOST', '0.0.0.0')
+    port = int(os.getenv('PORT', 5001))
+    debug = os.getenv('DEBUG', 'False').lower() == 'true'
+    
+    app.run(host=host, port=port, debug=debug)
